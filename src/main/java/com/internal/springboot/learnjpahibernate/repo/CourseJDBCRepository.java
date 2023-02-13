@@ -34,7 +34,7 @@ public class CourseJDBCRepository {
         courseJdbcTemplate.update(DELETE_QUERY, id);
     }
 
-    public Course findtById(long id){
+    public Course findById(long id){
         return courseJdbcTemplate.queryForObject(SELECT_QUERY,
                 new BeanPropertyRowMapper<>(Course.class),id);
     }
