@@ -1,8 +1,9 @@
 package com.internal.springboot.learnjpahibernate.runner;
 
 import com.internal.springboot.learnjpahibernate.entity.Course;
-import com.internal.springboot.learnjpahibernate.repo.CourseJDBCRepository;
-import com.internal.springboot.learnjpahibernate.repo.CourseJPARepository;
+import com.internal.springboot.learnjpahibernate.repo.CourseJdbcRepository;
+import com.internal.springboot.learnjpahibernate.repo.CourseJpaRepository;
+import com.internal.springboot.learnjpahibernate.repo.CourseSpringDataJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,14 @@ import org.springframework.stereotype.Component;
 public class CourseCommandLineRunner implements CommandLineRunner {
 
     @Autowired
-    CourseJDBCRepository courseJDBCRepository;
+    private CourseJdbcRepository courseJDBCRepository;
 
     @Autowired
-    CourseJPARepository courseJPARepository;
+    private CourseJpaRepository courseJPARepository;
+
+    @Autowired
+    private CourseSpringDataJpaRepository courseSpringDataJpaRepository;
+
     @Override
     public void run(String... args) throws Exception {
         /*courseJDBCRepository.insert(new Course(1, "AWS SA", "Stephane Maarek"));
@@ -25,12 +30,21 @@ public class CourseCommandLineRunner implements CommandLineRunner {
 
         System.out.println(courseJDBCRepository.findById(3));*/
 
-        courseJPARepository.insert(new Course(1, "AWS SA Now", "Stephane Maarek"));
+        /*courseJPARepository.insert(new Course(1, "AWS SA Now", "Stephane Maarek"));
         courseJPARepository.insert(new Course(2, "Kafka Now", "Stephane Maarek"));
         courseJPARepository.insert(new Course(3, "Spring Boot Now", "Ranga Karnam"));
 
         courseJPARepository.deleteById(2);
 
-        System.out.println(courseJPARepository.findById(3));
+        System.out.println(courseJPARepository.findById(3));*/
+
+        courseSpringDataJpaRepository.save(new Course(1, "AWS SA Again", "Stephane Maarek"));
+        courseSpringDataJpaRepository.save(new Course(2, "Kafka Again", "Stephane Maarek"));
+        courseSpringDataJpaRepository.save(new Course(3, "Spring Boot Again", "Ranga Karnam"));
+
+        courseSpringDataJpaRepository.deleteById(2L);
+
+        System.out.println(courseSpringDataJpaRepository.findById(3L));
+
     }
 }
